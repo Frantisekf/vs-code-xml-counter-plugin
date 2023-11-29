@@ -1,6 +1,6 @@
 import * as assert from 'assert';
 import mockFs from 'mock-fs';
-import { countXMLFiles } from '../../../src/extension';  // Adjust the path as necessary
+import { countXMLFiles } from '../../../src/extension'; 
 
 suite('XML File Counter Logic', () => {
     setup(() => {
