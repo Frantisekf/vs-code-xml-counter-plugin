@@ -2,6 +2,12 @@
 
 This is the README for your extension "xml-file-counter". After writing up a brief description, we recommend including the following sections.
 
+## How to run from VSCode
+
+Compile the project by running the `npm run compile`
+Go to Run & Debug tab on the left side navbar and press the Run extension (Green arrow) / or just press F5 key to run
+This will open a new VSCode window with the running extension in the bottom right corner of the screen
+
 ## Features
 
 Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.

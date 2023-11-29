@@ -1,15 +1,42 @@
 import * as assert from 'assert';
+import mockFs from 'mock-fs';
+import { countXMLFiles } from '../../../src/extension';  // Adjust the path as necessary
 
-// You can import and use all API from the 'vscode' module
-// as well as import your extension to test it
-import * as vscode from 'vscode';
-// import * as myExtension from '../../extension';
+suite('XML File Counter Logic', () => {
+    setup(() => {
+        mockFs({
+            'workspace': {
+                'file1.xml': 'content',
+                'file2.txt': 'content',
+                'subDir': {
+                    'file3.xml': 'content',
+                    'anotherSubDir': {
+                        'file4.xml': 'content',
+                        'file5.js': 'content'
+                    }
+                }
+            }
+        });
+    });
 
-suite('Extension Test Suite', () => {
-	vscode.window.showInformationMessage('Start all tests.');
+    teardown(() => {
+        mockFs.restore();
+    });
 
-	test('Sample test', () => {
-		assert.strictEqual(-1, [1, 2, 3].indexOf(5));
-		assert.strictEqual(-1, [1, 2, 3].indexOf(0));
-	});
+    test('Count XML Files in Workspace', async () => {
+        const count = await countXMLFiles('workspace');
+        assert.strictEqual(count, 3);
+    });
+
+    test('Count XML Files in Empty Directory', async () => {
+        const count = await countXMLFiles('workspace/emptyDir');
+        assert.strictEqual(count, 0);
+    });
+
+    test('Count in Non-existent Directory', async () => {
+        await assert.rejects(async () => {
+            await countXMLFiles('nonexistent');
+        });
+    });
+    
 });
